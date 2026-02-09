@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Tracker | Philippines</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo-container">
+    <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" class="logo">
+    <span class="brand">Hotel Tracker</span>
+  </div>
+
+  <div class="header-search">
+    <input type="text" id="searchInput" placeholder="Search city, hotel, or landmark...">
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <nav class="nav-links">
+    <a href="hotels.html">Destinations</a>
+    <a href="bookings.html">Deals</a>
+    <a href="#">Favorites</a>
+    <a href="login.html" class="signin-text">Sign In 👤</a>
+  </nav>
+</header>
+
+<section class="hero">
+    <h1>Explore Hotels in the Philippines</h1>
+    <p>Find the best deals on top destinations</p>
+</section>
+
+<section class="filters">
+  <button class="filter-btn active" onclick="filterHotels('all')">All</button>
+  <button class="filter-btn" onclick="filterHotels('beach')">Beach</button>
+  <button class="filter-btn" onclick="filterHotels('city')">City</button>
+  <button class="filter-btn" onclick="filterHotels('mountain')">Mountain</button>
+</section>
+
+<div class="main-layout">
+  <main class="hotel-grid" id="hotelGrid"></main>
+
+  <aside class="sidebar">
+    <div class="side-card">
+       <div class="map-placeholder" id="mapTrigger" onclick="openMap()" style="cursor: pointer;">
+          <span style="font-size: 40px;">📍</span>
+          <h4>MAP VIEW</h4>
+          <p>Click to expand</p>
+       </div>
+    </div>
+
+    <div class="side-card">
+      <h4>Top Destinations</h4>
+      <ul class="dest-list">
+        <li onclick="searchByDest('Boracay')">Boracay</li>
+        <li onclick="searchByDest('Palawan')">Palawan</li>
+        <li onclick="searchByDest('Cebu')">Cebu</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
