@@ -1,4 +1,4 @@
-// Database of hotels - Updated with exact filenames from your folder
+// Database of hotels 
 const hotels = [
     { name: "Boracay Beach Resort", loc: "Boracay, Aklan", price: 4500, cat: "beach", img: "boracay.jpg", rate: 5 },
     { name: "Manila City Hotel", loc: "Manila", price: 3200, cat: "city", img: "manila.jpg", rate: 4 },
@@ -92,4 +92,5 @@ function searchByDest(destination) {
         const result = hotels.filter(h => h.loc.toLowerCase().includes(destination.toLowerCase()));
         displayHotels(result);
     }
+
 }
