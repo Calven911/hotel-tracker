@@ -104,7 +104,7 @@ body {
 .hotel-card {
     background: white;
     border-radius: 12px;
-    padding: 0; /* Changed to 0 to make image flush to top */
+    padding: 0; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     transition: 0.3s;
     overflow: hidden;
@@ -189,5 +189,6 @@ body {
     border: 1px dashed #bbb;
     transition: 0.3s;
 }
+
 
 .map-placeholder:hover { background: #d5d5d5; }
