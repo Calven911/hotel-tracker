@@ -32,7 +32,7 @@ function displayHotels(filteredList) {
                     <p class="location">📍 ${hotel.loc}</p>
                     <div class="rating">${stars}</div>
                     <p class="price">₱${hotel.price.toLocaleString()} <span>/ night</span></p>
-                    <button class="view-details-btn">View Details</button>
+                    <button class="view-details-btn" onclick="openDetails(${hotels.indexOf(hotel)})">View Details</button>
                 </div>
             </div>
         `;
@@ -51,11 +51,48 @@ function displayHotels(filteredList) {
     });
 }
 
-// Filter function for the category buttons
+// Function to open the modal and fill it with specific hotel data
+function openDetails(index) {
+    const hotel = hotels[index];
+    const modal = document.getElementById('hotelModal');
+    
+    // Map data to modal elements
+    document.getElementById('modalName').innerText = hotel.name;
+    document.getElementById('modalLoc').innerText = hotel.loc;
+    document.getElementById('modalImgMain').src = hotel.img;
+    document.getElementById('modalImg1').src = hotel.img; 
+    document.getElementById('modalImg2').src = hotel.img; 
+    document.getElementById('modalStars').innerText = "⭐".repeat(hotel.rate);
+    document.getElementById('modalRatingScore').innerText = hotel.rate + ".0";
+    
+    // Dynamic description
+    document.getElementById('modalDesc').innerText = `Located in the heart of ${hotel.loc}, ${hotel.name} offers a refined sanctuary for travelers. Known for its impeccable service and timeless elegance.`;
+
+    // Show modal and prevent background scrolling
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden"; 
+}
+
+// Function to close the modal
+function closeModal() {
+    document.getElementById('hotelModal').style.display = "none";
+    document.body.style.overflow = "auto"; 
+}
+
+// Close modal if clicking outside the content box
+window.onclick = function(event) {
+    const modal = document.getElementById('hotelModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+// --- FILTER & SEARCH LOGIC ---
+
+// Filter function for category buttons
 function filterHotels(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
-        // Check if button text matches category or use data attribute
         if(btn.innerText.toLowerCase() === category.toLowerCase()) btn.classList.add('active');
     });
 
@@ -83,7 +120,7 @@ displayHotels(hotels);
 
 // Map and Sidebar functions
 function openMap() {
-    window.open("https://www.google.com/maps/place/Philippines", "_blank");
+    window.open("https://www.google.com/maps", "_blank");
 }
 
 function searchByDest(destination) {
@@ -92,5 +129,4 @@ function searchByDest(destination) {
         const result = hotels.filter(h => h.loc.toLowerCase().includes(destination.toLowerCase()));
         displayHotels(result);
     }
-
 }
