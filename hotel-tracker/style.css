@@ -44,9 +44,33 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 
 /* SIDEBAR */
 .sidebar { flex: 1; }
-.side-card { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; }
+.side-card { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; position: relative; }
 .side-card h4 { margin: 0 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; font-weight: 600; }
-.map-container { width: 100%; height: 200px; border-radius: 12px; overflow: hidden; background: #e0e0e0; }
+
+/* MAP CONTAINER UPDATED */
+.map-container { 
+    width: 100%; 
+    height: 200px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    background: #e0e0e0; 
+    cursor: pointer;
+    transition: all 0.5s ease;
+    z-index: 10;
+}
+
+/* Expanded Map State */
+.map-container.expanded {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    z-index: 9999;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    border: 5px solid white;
+}
+
 .dest-list, .offer-list { list-style: none; padding: 0; margin: 0; }
 .dest-list li, .offer-list li { padding: 10px 0; border-bottom: 1px solid #fafafa; cursor: pointer; transition: 0.2s; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
 .dest-list li i, .offer-list li i { color: #2d6cdf; font-size: 0.8rem; width: 18px; }
@@ -69,3 +93,7 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 #modalRatingScore { font-size: 2.5rem; font-weight: bold; }
 .modal-amenities ul { list-style: none; padding: 0; }
 .modal-amenities li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+
+#favoritesSidebarList li { cursor: pointer; color: #333; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+#favoritesSidebarList li:hover { color: #2d6cdf; padding-left: 5px; }
+.modal-footer { display: flex; justify-content: flex-end; padding-top: 20px; margin-top: 20px; border-top: 1px solid #eee; }
