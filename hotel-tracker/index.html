@@ -21,7 +21,6 @@
         </div>
         <nav class="nav-links">
             <a href="hotels.html">Destinations</a>
-            <a href="bookings.html">Deals</a>
             <a href="javascript:void(0)" onclick="showFavoritesOnly()">Favorites</a>
             <a href="login.html" class="signin-text">Sign In 👤</a>
         </nav>
@@ -121,19 +120,14 @@
                         <span id="modalReviews">(3,045 reviews)</span>
                     </div>
                 </div>
-                <div class="modal-amenities">
-                    <h3>Property amenities</h3>
-                    <ul id="amenitiesList">
-                        <li><i class="fa-solid fa-square-p"></i> Valet Parking</li>
-                        <li><i class="fa-solid fa-dumbbell"></i> Fitness Center</li>
-                        <li><i class="fa-solid fa-wifi"></i> Free WiFi</li>
-                        <li><i class="fa-solid fa-star"></i> Entertainment</li>
-                        <li><i class="fa-solid fa-pool"></i> Pool</li>
-                    </ul>
+                <div class="modal-reviews-section">
+                    <h3>Reviews & Comments</h3>
+                    <div id="commentsDisplay" class="comments-list"></div>
+                    <div class="comment-input-group">
+                        <textarea id="commentText" placeholder="Write your review here..."></textarea>
+                        <button id="submitCommentBtn" class="view-details-btn">Post Review</button>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer" style="padding-top: 20px; text-align: right; border-top: 1px solid #eee;">
-                <button class="view-details-btn" id="bookNowBtn" style="width: auto; padding: 12px 30px;">Book This Hotel Now</button>
             </div>
         </div>
     </div>
