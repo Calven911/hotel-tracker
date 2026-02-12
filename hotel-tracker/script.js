@@ -1,4 +1,6 @@
-//Global Hotel Database
+/**
+ * Global Hotel Database
+ */
 const hotels = [
     { name: "Boracay Beach Resort", loc: "Boracay, Aklan", price: 4500, cat: "beach", img: "boracay.jpg", subImgs: ["Boracay Beach Resort(1).jpg", "Boracay Beach Resort(2).jpg"], rate: 5, coords: [11.9674, 121.9248], desc: "A stunning beachfront escape offering crystal clear waters and white sand." },
     { name: "The Manila Hotel", loc: "One Rizal Park, Manila", price: 3200, cat: "city", img: "manila.jpg", subImgs: ["Manila City Hotel.jpg", "Manila City Hotel (2).jpg"], rate: 5, coords: [14.5895, 120.9751], desc: "Overlooking the South Harbor, this iconic luxury hotel is a refined sanctuary." },
@@ -12,59 +14,55 @@ const hotels = [
     { name: "Vigan Heritage Mansion", loc: "Vigan City, Ilocos Sur", price: 2800, cat: "city", img: "Vigan Heritage Mansion.jpg", subImgs: ["Vigan Heritage Mansion(2).jpg", "Vigan Heritage Mansion(3).jpg"], rate: 4, coords: [17.5747, 120.3875], desc: "Experience the charm of the Spanish colonial era in this beautifully preserved mansion at the heart of Vigan." },
 ];
 
-// Application State Variables
 let favorites = []; 
 let map; 
 let markers = []; 
-
-// DOM Elements
+let hotelComments = {}; 
 const grid = document.getElementById('hotelGrid');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 
-
-//Initializes the Leaflet Map
- 
+/**
+ * Initializes the Leaflet Map with Markers
+ */
 function initMap() {
-    map = L.map('map').setView([12.8797, 121.7740], 5);
+    if (!map) {
+        map = L.map('map').setView([12.8797, 121.7740], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    hotels.forEach(hotel => {
-        let marker = L.marker(hotel.coords).addTo(map)
-            .bindPopup(`<b>${hotel.name}</b><br>₱${hotel.price.toLocaleString()}/night`);
-        markers.push({ name: hotel.name, marker: marker });
-    });
+        hotels.forEach(hotel => {
+            let marker = L.marker(hotel.coords).addTo(map)
+                .bindPopup(`<b>${hotel.name}</b><br>₱${hotel.price.toLocaleString()}/night`);
+            markers.push({ name: hotel.name, marker: marker });
+        });
+    }
 }
 
-//Toggles Map Container Size smoothly
+/**
+ * Toggles Map Container Size
+ */
 function toggleMapSize() {
     const mapDiv = document.getElementById('map');
     mapDiv.classList.toggle('expanded');
-    
     let start = null;
     function smoothResize(timestamp) {
         if (!start) start = timestamp;
         let progress = timestamp - start;
-        
         map.invalidateSize(); 
-        
-        if (progress < 600) { 
-            requestAnimationFrame(smoothResize);
-        }
+        if (progress < 600) { requestAnimationFrame(smoothResize); }
     }
     requestAnimationFrame(smoothResize);
 }
 
-
-//Renders Hotel Cards to the Grid
- 
+/**
+ * Renders Hotel Cards to the Grid
+ */
 function displayHotels(filteredList) {
     if (!grid) return;
     grid.innerHTML = "";
-    filteredList.forEach(hotel => {
+    filteredList.forEach((hotel) => {
         const stars = "⭐".repeat(hotel.rate);
         const isFavorite = favorites.some(fav => fav.name === hotel.name);
         const card = `<div class="hotel-card" data-category="${hotel.cat}">
@@ -86,26 +84,20 @@ function displayHotels(filteredList) {
     });
 }
 
-
-//Opens Hotel Details Modal with FlyTo animation
- 
+/**
+ * Opens Hotel Details Modal with Map Zoom Effect
+ */
 function openDetails(index) {
     const hotel = hotels[index];
     const modal = document.getElementById('hotelModal');
     
     if (map) {
-        map.flyTo(hotel.coords, 15, {
-            animate: true,
-            duration: 1.5 
-        });
-
+        map.flyTo(hotel.coords, 15, { animate: true, duration: 1.5 });
         const targetMarker = markers.find(m => m.name === hotel.name);
         if (targetMarker) {
-            setTimeout(() => {
-                targetMarker.marker.openPopup();
-            }, 1600);
+            setTimeout(() => { targetMarker.marker.openPopup(); }, 1600);
         }
-        map.invalidateSize(); 
+        setTimeout(() => { map.invalidateSize(); }, 500); 
     }
 
     document.getElementById('modalName').innerText = hotel.name;
@@ -114,17 +106,45 @@ function openDetails(index) {
     document.getElementById('modalImg1').src = hotel.subImgs[0];
     document.getElementById('modalImg2').src = hotel.subImgs[1];
     document.getElementById('modalDesc').innerText = hotel.desc;
+    document.getElementById('modalRatingScore').innerText = hotel.rate + ".0";
+    document.getElementById('modalStars').innerText = "⭐".repeat(hotel.rate);
 
-    document.getElementById('bookNowBtn').onclick = function() {
-        if (confirm(`Proceed to book ${hotel.name}?`)) {
-            window.location.href = `bookings.html?hotel=${encodeURIComponent(hotel.name)}`;
-        }
-    };
+    displayComments(hotel.name);
+    document.getElementById('submitCommentBtn').onclick = () => postComment(hotel.name);
 
     modal.style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
+/**
+ * Handles Review Posting
+ */
+function postComment(hotelName) {
+    const textarea = document.getElementById('commentText');
+    const comment = textarea.value.trim();
+    if (!comment) return;
+    if (!hotelComments[hotelName]) { hotelComments[hotelName] = []; }
+    hotelComments[hotelName].push(comment);
+    textarea.value = "";
+    displayComments(hotelName);
+}
+
+/**
+ * Displays Reviews
+ */
+function displayComments(hotelName) {
+    const container = document.getElementById('commentsDisplay');
+    const comments = hotelComments[hotelName] || [];
+    if (comments.length === 0) {
+        container.innerHTML = "<p style='color:#999'>No reviews yet. Be the first!</p>";
+    } else {
+        container.innerHTML = comments.map(c => `<div class='comment-item'>👤 User: ${c}</div>`).join('');
+    }
+}
+
+/**
+ * Modal Controls
+ */
 function closeModal() {
     document.getElementById('hotelModal').style.display = "none";
     document.body.style.overflow = "auto";
@@ -132,12 +152,14 @@ function closeModal() {
 
 window.onclick = (e) => { if (e.target == document.getElementById('hotelModal')) closeModal(); };
 
+/**
+ * Favorites Logic
+ */
 function toggleFavorite(name) {
     const hotel = hotels.find(h => h.name === name);
     const index = favorites.findIndex(f => f.name === name);
     if (index > -1) favorites.splice(index, 1);
     else favorites.push(hotel);
-    
     renderFavoritesList();
     displayHotels(hotels);
 }
@@ -159,12 +181,14 @@ function showFavoritesOnly() {
     }
 }
 
+/**
+ * Filters & Search
+ */
 function filterHotels(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.innerText.toLowerCase() === category.toLowerCase()) btn.classList.add('active');
     });
-    document.querySelector('.hero h1').innerText = "Explore Hotels in the Philippines";
     const result = category === 'all' ? hotels : hotels.filter(h => h.cat === category);
     displayHotels(result);
 }
@@ -199,6 +223,9 @@ function searchByDest(dest) {
     displayHotels(filtered);
 }
 
+/**
+ * Promotions
+ */
 function applyOffer(type) {
     if (type === 'promo') displayHotels(hotels.filter(h => h.rate >= 4));
     alert("Offer applied: " + type);
