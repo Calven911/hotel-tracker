@@ -1,35 +1,37 @@
-/**
- * Database of Hotels with Coordinates for Pins
- */
+//Global Hotel Database
 const hotels = [
     { name: "Boracay Beach Resort", loc: "Boracay, Aklan", price: 4500, cat: "beach", img: "boracay.jpg", subImgs: ["Boracay Beach Resort(1).jpg", "Boracay Beach Resort(2).jpg"], rate: 5, coords: [11.9674, 121.9248], desc: "A stunning beachfront escape offering crystal clear waters and white sand." },
     { name: "The Manila Hotel", loc: "One Rizal Park, Manila", price: 3200, cat: "city", img: "manila.jpg", subImgs: ["Manila City Hotel.jpg", "Manila City Hotel (2).jpg"], rate: 5, coords: [14.5895, 120.9751], desc: "Overlooking the South Harbor, this iconic luxury hotel is a refined sanctuary." },
     { name: "Baguio Mountain Lodge", loc: "Baguio City", price: 5800, cat: "mountain", img: "baguio.jpg", subImgs: ["Baguio Mountain(1).jpg", "Baguio Mountain Lodge(2).jpg"], rate: 4, coords: [16.4023, 120.5960], desc: "Nestled in the cold mountains of Baguio with a cozy stone fireplace." },
     { name: "Cebu Bay Hotel", loc: "Cebu City", price: 3800, cat: "city", img: "cebu.jpg", subImgs: ["Cebu Bay Hotel(1).jpg", "Cebu Bay Hotel(2).jpg"], rate: 4, coords: [10.3157, 123.8854], desc: "Featuring a stunning rooftop infinity pool overlooking the city skyline." },
     { name: "El Nido Island Resort", loc: "Palawan", price: 7200, cat: "beach", img: "El Nido Island Resort.jpg", subImgs: ["El Nido Island Resort(2).jpg", "El Nido Island Resort (3).jpg"], rate: 5, coords: [11.1955, 119.4140], desc: "A paradise tucked away in limestone cliffs with private villas." },
-    { name: "Davao Downtown Inn", loc: "Davao City", price: 2300, cat: "city", img: "Davao Downtown Inn.jpg", subImgs: ["Davao Downtown Inn - Hop Inn Hotel Davao(1).jpg", "Davao Downtown Inn - Hop Inn Hotel Davao(2).jpg"], rate: 3, coords: [7.0707, 125.6092], desc: "Modern, clean, and perfect for business travelers in downtown Davao." }
+    { name: "Davao Downtown Inn", loc: "Davao City", price: 2300, cat: "city", img: "Davao Downtown Inn.jpg", subImgs: ["Davao Downtown Inn - Hop Inn Hotel Davao(1).jpg", "Davao Downtown Inn - Hop Inn Hotel Davao(2).jpg"], rate: 3, coords: [7.0707, 125.6092], desc: "Modern, clean, and perfect for business travelers in downtown Davao." },
+    { name: "Siargao Surfers Retreat", loc: "General Luna, Siargao", price: 3500, cat: "beach", img: "Siargao Surfers Retreat.jpg", subImgs: ["Siargao Surfers Retreat(2).jpg", "Siargao Surfers Retreat(3).jpg"], rate: 5, coords: [9.7915, 126.1610], desc: "The ultimate destination for surfers and island lovers, located near Cloud 9." },
+    { name: "Bohol Panglao Resort", loc: "Panglao, Bohol", price: 5500, cat: "beach", img: "Bohol Panglao Resort.jpg", subImgs: ["Bohol Panglao Resort(2).jpg", "Bohol Panglao Resort(3).jpg"], rate: 4, coords: [9.5552, 123.7744], desc: "Tropical luxury near the famous white sands of Alona Beach and the Chocolate Hills." },
+    { name: "Tagaytay Ridge View", loc: "Tagaytay City", price: 4200, cat: "mountain", img: "Tagaytay Ridge View.jpg", subImgs: ["Tagaytay Ridge View(2).jpg", "Tagaytay Ridge View(3).jpg"], rate: 5, coords: [14.1153, 120.9621], desc: "Enjoy the cool breeze and the iconic view of Taal Volcano from your balcony." },
+    { name: "Vigan Heritage Mansion", loc: "Vigan City, Ilocos Sur", price: 2800, cat: "city", img: "Vigan Heritage Mansion.jpg", subImgs: ["Vigan Heritage Mansion(2).jpg", "Vigan Heritage Mansion(3).jpg"], rate: 4, coords: [17.5747, 120.3875], desc: "Experience the charm of the Spanish colonial era in this beautifully preserved mansion at the heart of Vigan." },
 ];
 
-let favorites = [];
-let map; // Global map variable
-let markers = [];
+// Application State Variables
+let favorites = []; 
+let map; 
+let markers = []; 
 
+// DOM Elements
 const grid = document.getElementById('hotelGrid');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 
-/**
- * Initialize Leaflet Map
- */
+
+//Initializes the Leaflet Map
+ 
 function initMap() {
-    // Center of Philippines
     map = L.map('map').setView([12.8797, 121.7740], 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Add Pins for all hotels
     hotels.forEach(hotel => {
         let marker = L.marker(hotel.coords).addTo(map)
             .bindPopup(`<b>${hotel.name}</b><br>₱${hotel.price.toLocaleString()}/night`);
@@ -37,22 +39,28 @@ function initMap() {
     });
 }
 
-/**
- * Toggle Map Size (Expand/Shrink)
- */
+//Toggles Map Container Size smoothly
 function toggleMapSize() {
     const mapDiv = document.getElementById('map');
     mapDiv.classList.toggle('expanded');
     
-    // Invalidate size to prevent gray boxes during transition
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 500);
+    let start = null;
+    function smoothResize(timestamp) {
+        if (!start) start = timestamp;
+        let progress = timestamp - start;
+        
+        map.invalidateSize(); 
+        
+        if (progress < 600) { 
+            requestAnimationFrame(smoothResize);
+        }
+    }
+    requestAnimationFrame(smoothResize);
 }
 
-/**
- * Display functionality
- */
+
+//Renders Hotel Cards to the Grid
+ 
 function displayHotels(filteredList) {
     if (!grid) return;
     grid.innerHTML = "";
@@ -78,29 +86,37 @@ function displayHotels(filteredList) {
     });
 }
 
-/**
- * Modal logic
- */
+
+//Opens Hotel Details Modal with FlyTo animation
+ 
 function openDetails(index) {
     const hotel = hotels[index];
     const modal = document.getElementById('hotelModal');
     
-    // Move map to hotel location
-    map.setView(hotel.coords, 13);
-    const targetMarker = markers.find(m => m.name === hotel.name);
-    if (targetMarker) targetMarker.marker.openPopup();
+    if (map) {
+        map.flyTo(hotel.coords, 15, {
+            animate: true,
+            duration: 1.5 
+        });
+
+        const targetMarker = markers.find(m => m.name === hotel.name);
+        if (targetMarker) {
+            setTimeout(() => {
+                targetMarker.marker.openPopup();
+            }, 1600);
+        }
+        map.invalidateSize(); 
+    }
 
     document.getElementById('modalName').innerText = hotel.name;
     document.getElementById('modalLoc').innerText = hotel.loc;
     document.getElementById('modalImgMain').src = hotel.img;
     document.getElementById('modalImg1').src = hotel.subImgs[0];
     document.getElementById('modalImg2').src = hotel.subImgs[1];
-    document.getElementById('modalStars').innerText = "⭐".repeat(hotel.rate);
-    document.getElementById('modalRatingScore').innerText = hotel.rate + ".0";
     document.getElementById('modalDesc').innerText = hotel.desc;
 
     document.getElementById('bookNowBtn').onclick = function() {
-        if (confirm(`Book ${hotel.name}?`)) {
+        if (confirm(`Proceed to book ${hotel.name}?`)) {
             window.location.href = `bookings.html?hotel=${encodeURIComponent(hotel.name)}`;
         }
     };
@@ -135,7 +151,7 @@ function renderFavoritesList() {
 
 function showFavoritesOnly() {
     if (favorites.length === 0) {
-        alert("Empty favorites!");
+        alert("Your favorites list is currently empty!");
         displayHotels(hotels);
     } else {
         displayHotels(favorites);
@@ -148,6 +164,7 @@ function filterHotels(category) {
         btn.classList.remove('active');
         if (btn.innerText.toLowerCase() === category.toLowerCase()) btn.classList.add('active');
     });
+    document.querySelector('.hero h1').innerText = "Explore Hotels in the Philippines";
     const result = category === 'all' ? hotels : hotels.filter(h => h.cat === category);
     displayHotels(result);
 }
@@ -187,7 +204,6 @@ function applyOffer(type) {
     alert("Offer applied: " + type);
 }
 
-// Initial Setup
 document.addEventListener("DOMContentLoaded", () => {
     initMap();
     displayHotels(hotels);
