@@ -46,14 +46,15 @@ function initMap() {
 function toggleMapSize() {
     const mapDiv = document.getElementById('map');
     mapDiv.classList.toggle('expanded');
-    let start = null;
-    function smoothResize(timestamp) {
-        if (!start) start = timestamp;
-        let progress = timestamp - start;
-        map.invalidateSize(); 
-        if (progress < 600) { requestAnimationFrame(smoothResize); }
-    }
-    requestAnimationFrame(smoothResize);
+    if (mapDiv.classList.contains('expanded')) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "auto";
+    }setTimeout(() => {
+        if (map) {
+            map.invalidateSize(); 
+        }
+    }, 450); 
 }
 
 /**
