@@ -16,9 +16,10 @@ transition:0.4s;
 body{
 height:100vh;
 display:flex;
+flex-direction: column; 
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#000000,#ff8c00);
+background:linear-gradient(135deg,#050000,#ff8c00);
 color:white;
 }
 
@@ -158,10 +159,15 @@ font-weight:bold;
 </head>
 <body>
 
+<header style="margin-bottom: 20px; text-align: center;">    
+    <div onclick="window.location.href='index.html'" style="cursor: pointer;">
+        <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" style="width: 150px; height: auto; display: block; margin: 0 auto;">
+    </div>
+</header>
+
 <div class="container" id="authBox">
 <div class="slider" id="slider">
 
-<!-- LOGIN -->
 <div class="card">
 <h2>Login</h2>
 
@@ -190,7 +196,6 @@ Don't have account? <span onclick="slide(1)">Sign Up</span>
 <p id="loginMsg"></p>
 </div>
 
-<!-- REGISTER -->
 <div class="card">
 <h2>Register</h2>
 
@@ -223,7 +228,6 @@ Already have account? <span onclick="slide(0)">Login</span>
 <p id="regMsg"></p>
 </div>
 
-<!-- FORGOT -->
 <div class="card">
 <h2>Reset Password</h2>
 
@@ -246,7 +250,6 @@ Already have account? <span onclick="slide(0)">Login</span>
 </div>
 </div>
 
-<!-- DASHBOARD -->
 <div class="dashboard" id="dash">
 <h2>Welcome</h2>
 <div class="avatar" id="avatar"></div>
