@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo-container">
-            <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" class="logo">
-            <span class="brand">Hotel Tracker</span>
+    <header class="navbar">    
+        <div class="logo-container" onclick="window.location.reload()" style="cursor: pointer;">
+             <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" class="logo">
+             <span class="brand">Hotel Tracker</span>
         </div>
         <div class="header-search">
             <input type="text" id="searchInput" placeholder="Search city, hotel, or landmark...">
@@ -22,7 +22,7 @@
         <nav class="nav-links">
             <a href="hotels.html">Destinations</a>
             <a href="javascript:void(0)" onclick="showFavoritesOnly()">Favorites</a>
-            <a href="login.html" class="signin-text">Sign In 👤</a>
+            <a href="login.html" class="signin-text"> Login/Sign In 👤</a>
         </nav>
     </header>
 
