@@ -145,8 +145,8 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
     border: 1px solid rgba(255, 255, 255, 0.3); 
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); 
     overflow: hidden;
-    width: 100%;
-    max-width: 500px;
+    width: 150%;
+    max-width: 400px;
     margin: 0 auto;
     transition: transform 0.3s ease;
 }
@@ -206,7 +206,7 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 
 /* GLASS NAVIGATION DESIGN BAR */
 .navbar.glass-nav {
-    background: rgba(255, 255, 255, 0.2); 
+    background: rgba(0, 0, 0, 0.2); 
     backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -228,7 +228,7 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 
 .nav-links a {
     text-decoration: none;
-    color: #444;
+    color: #ce9c46;
     font-size: 0.95rem;
     font-weight: 500;
     display: flex;
@@ -278,4 +278,77 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 .signin-btn:hover {
     background: #a6790a !important;
     box-shadow: 0 6px 15px rgba(184, 134, 11, 0.5);
+}
+
+/* --- RESPONSIVE DESIGN (MOBILE & TABLET) --- */
+@media (max-width: 768px) {
+    /* Navbar Adjustment */
+    .navbar.glass-nav {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .header-search {
+        width: 90%;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: space-around;
+        gap: 5px;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        flex-direction: column; 
+        gap: 4px;
+    }
+
+    .main-layout {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .content-area, .sidebar {
+        width: 100%;
+    }
+
+    .sidebar {
+        position: static; 
+    }
+
+    .hero {
+        padding: 40px 15px;
+        margin: 10px;
+    }
+
+    .hero h1 {
+        font-size: 1.4rem;
+    }
+
+    .map-container.expanded::after {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .hotel-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .filter-sort-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-filters {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
 }
