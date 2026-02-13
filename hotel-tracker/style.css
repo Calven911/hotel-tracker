@@ -58,6 +58,19 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 /* AVAILABLE HOTELS TITLE */
 .page-title { font-size: 2.5rem; color: #b8860b; font-weight: 600; text-align: center; margin: 40px 0; text-transform: uppercase; letter-spacing: 1px; }
 
+/* Logo Refresher */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.logo-container:hover {
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
 /* MAP CONTAINER */
 .map-container { 
     width: 100%; 
