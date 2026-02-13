@@ -9,17 +9,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo-container" onclick="window.location.href='index.html'" style="cursor:pointer">
-            <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" class="logo">
-            <span class="brand">Hotel Tracker</span>
-        </div>
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="hotels.html">Destinations</a>
-            <a href="javascript:void(0)" class="signin-text" onclick="openLogoutModal()">Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
-        </nav>
-    </header>
+    <header class="navbar glass-nav">    
+    <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+         <img src="hoteltrackerlogo.png" alt="Hotel Tracker Logo" class="logo">
+         <span class="brand">Hotel Tracker</span>
+    </div>
+    <nav class="nav-links">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="hotels.html"><i class="fa-solid fa-map-location-dot"></i> Destinations</a>
+        <a href="javascript:void(0)" onclick="showFavoritesOnly()"><i class="fa-solid fa-heart"></i> Favorites</a>
+        <a href="profile.html"><i class="fa-solid fa-circle-user"></i> Profile</a>
+        <a href="login.html" class="signin-btn"><i class="fa-solid fa-right-to-bracket"></i> Sign In</a>          
+    </nav>
+</header>
 
     <div class="main-layout" style="justify-content: center; padding-top: 50px; min-height: 80vh;">
         <div class="profile-container">
