@@ -203,3 +203,79 @@ body { margin: 0; font-family: 'Poppins', sans-serif; background: #f4f4f4; color
 .social-footer a:hover {
     color: #4a7af0;
 }
+
+/* GLASS NAVIGATION DESIGN BAR */
+.navbar.glass-nav {
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+/* INTERACTIVE NAV LINKS */
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #444;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.nav-links a:hover {
+    color: #b8860b; 
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* SEARCH BAR DESIGN */
+.header-search {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 5px 15px;
+    border-radius: 30px;
+    width: 30%;
+    transition: 0.3s;
+}
+
+.header-search:focus-within {
+    width: 35%;
+    box-shadow: 0 0 15px rgba(184, 134, 11, 0.2);
+    border-color: #b8860b;
+}
+
+.search-icon {
+    color: #888;
+    margin-right: 10px;
+}
+
+/* SIGN IN BUTTON DESIGN */
+.signin-btn {
+    background: #b8860b;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(184, 134, 11, 0.3);
+}
+
+.signin-btn:hover {
+    background: #a6790a !important;
+    box-shadow: 0 6px 15px rgba(184, 134, 11, 0.5);
+}
