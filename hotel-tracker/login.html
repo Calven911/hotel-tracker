@@ -2,51 +2,40 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Auth UI</title>
+<title>Black Orange Auth</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+transition:0.4s;
+}
 
-/* MOVING WAVES BACKGROUND */
 body{
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(120deg,#2c2424,#e4e4e4);
-overflow:hidden;
-transition:0.4s;
+background:linear-gradient(135deg,#000000,#ff8c00);
+color:white;
 }
 
-.wave{
-position:absolute;
-width:200%;
-height:200%;
-background:url("https://svgshare.com/i/13k8.svg");
-background-size:cover;
-animation:waveMove 20s linear infinite;
-opacity:0.3;
-}
-
-@keyframes waveMove{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
-}
-
-/* GLASS CARD */
+/* CARD */
 .container{
 width:340px;
 overflow:hidden;
 border-radius:15px;
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,0.25);
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+background:rgba(0,0,0,0.7);
+box-shadow:0 10px 30px rgba(255,140,0,0.4);
+border:1px solid orange;
 }
 
 .slider{
 display:flex;
 width:1020px;
-transition:0.6s;
+transition:0.5s;
 }
 
 .card{
@@ -55,186 +44,140 @@ padding:25px;
 text-align:center;
 }
 
+h2{
+color:orange;
+margin-bottom:10px;
+}
+
+/* INPUT GROUP */
+.inputGroup{
+position:relative;
+}
+
 input{
 width:100%;
 padding:10px;
 margin:7px 0;
-border:none;
 border-radius:7px;
-outline: none;
+border:1px solid #333;
+background:#111;
+color:white;
 }
 
-/* PROFESSIONAL TOGGLE STYLING */
-.input-group{position:relative; width: 100%;}
-
-.toggle{
+/* EYE ICON */
+.eye{
 position:absolute;
-right:10px;
-top: 50%;
-transform: translateY(-50%);
+right:12px;
+top:50%;
+transform:translateY(-50%);
 cursor:pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-opacity: 0.6;
-transition: 0.3s;
+color:orange;
+font-size:14px;
 }
 
-.toggle:hover { opacity: 1; }
-
-.toggle svg {
-    width: 20px;
-    height: 20px;
-    fill: #555;
+/* REMEMBER */
+.rememberBox{
+display:flex;
+align-items:center;
+justify-content:flex-start;
+font-size:12px;
+margin-top:5px;
 }
 
-/* Ensure text doesn't hide behind the eye icon */
-.input-group input {
-    padding-right: 40px;
+.rememberBox input{
+width:auto;
+margin-right:5px;
 }
 
+/* TERMS */
+.termsBox{
+display:flex;
+align-items:flex-start;
+font-size:12px;
+margin-top:5px;
+text-align:left;
+}
+
+.termsBox input{
+width:auto;
+margin-right:6px;
+margin-top:3px;
+}
+
+.termsBox span{
+color:orange;
+cursor:pointer;
+}
+
+/* BUTTON */
 button{
 width:100%;
 padding:10px;
 border:none;
 border-radius:7px;
-background:#5a67ff;
-color:white;
+background:orange;
+color:black;
+font-weight:bold;
 margin-top:10px;
 cursor:pointer;
-font-weight: 600;
 }
 
-button:hover{background:#3e48ff;}
-
-.link{font-size:13px;margin-top:10px;}
-.link span{color:#5a67ff;cursor:pointer;}
-
-.social{
-display:flex;
-justify-content:space-between;
+/* LINKS */
+.link{
+font-size:13px;
 margin-top:10px;
+text-align:center;
 }
 
-.social button{
-width:48%;
-}
-
-.fb{background:#1877f2;}
-.google{background:white;color:black;border:1px solid #ccc;}
-
-.checkbox{text-align:left;font-size:12px;margin-top:5px;}
-
-.loader{
-width:40px;
-height:40px;
-border:5px solid #ccc;
-border-top:5px solid #5a67ff;
-border-radius:50%;
-margin:10px auto;
-animation:spin 1s linear infinite;
-display:none;
-}
-
-@keyframes spin{
-100%{transform:rotate(360deg);}
+.link span{
+color:orange;
+cursor:pointer;
 }
 
 /* DASHBOARD */
 .dashboard{
 display:none;
 text-align:center;
-color:white;
 }
 
 .avatar{
 width:80px;
 height:80px;
 border-radius:50%;
-background:#5a67ff;
+background:orange;
 display:flex;
 justify-content:center;
 align-items:center;
 font-size:30px;
 margin:10px auto;
-color:white;
-}
-
-.logoutModal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-.modalBox{
-background:white;
-padding:20px;
-border-radius:10px;
-text-align:center;
-width:250px;
-}
-
-.themeBtn{
-position:absolute;
-top:15px;
-right:15px;
-padding:7px 15px;
-background:#5a67ff;
-color:white;
-border:none;
-border-radius:7px;
-cursor:pointer;
-z-index: 10;
-}
-
-body.light{
-background:#f0f0f0;
+color:black;
+font-weight:bold;
 }
 
 </style>
 </head>
-
 <body>
-
-<div class="wave"></div>
-
-<button class="themeBtn" onclick="toggleTheme()">Toggle Mode</button>
 
 <div class="container" id="authBox">
 <div class="slider" id="slider">
 
+<!-- LOGIN -->
 <div class="card">
 <h2>Login</h2>
 
-<div class="input-group">
 <input id="loginEmail" placeholder="Email">
-</div>
 
-<div class="input-group">
+<div class="inputGroup">
 <input type="password" id="loginPass" placeholder="Password">
-<span class="toggle" onclick="togglePass('loginPass')">
-    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-</span>
+<span class="eye" onclick="togglePassword('loginPass')">👁</span>
 </div>
 
-<label style="font-size:12px; display: block; text-align: left; margin: 10px 0;">
-<input type="checkbox" id="remember"> Remember Me
-</label>
+<div class="rememberBox">
+<input type="checkbox" id="rememberMe">
+<label for="rememberMe">Remember Me</label>
+</div>
 
 <button onclick="login()">Login</button>
-
-<div class="loader" id="loginLoad"></div>
-
-<div class="social">
-<button class="fb">Facebook</button>
-<button class="google">Google</button>
-</div>
 
 <div class="link">
 <span onclick="slide(2)">Forgot Password?</span>
@@ -244,186 +187,185 @@ background:#f0f0f0;
 Don't have account? <span onclick="slide(1)">Sign Up</span>
 </div>
 
-<div id="loginMsg"></div>
+<p id="loginMsg"></p>
 </div>
 
+<!-- REGISTER -->
 <div class="card">
 <h2>Register</h2>
 
 <input id="regName" placeholder="Full Name">
 <input id="regEmail" placeholder="Email">
 
-<div class="input-group">
+<div class="inputGroup">
 <input type="password" id="regPass" placeholder="Password">
-<span class="toggle" onclick="togglePass('regPass')">
-    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-</span>
+<span class="eye" onclick="togglePassword('regPass')">👁</span>
 </div>
 
+<div class="inputGroup">
 <input type="password" id="confirmPass" placeholder="Confirm Password">
+<span class="eye" onclick="togglePassword('confirmPass')">👁</span>
+</div>
 
-<div class="checkbox">
-<input type="checkbox" id="terms"> I agree Terms & Conditions
+<div class="termsBox">
+<input type="checkbox" id="agreeTerms">
+<label for="agreeTerms">
+I agree to <span onclick="alert('Terms & Conditions placeholder')">Terms & Conditions</span>
+</label>
 </div>
 
 <button onclick="register()">Register</button>
-
-<div class="social">
-<button class="fb">Facebook</button>
-<button class="google">Google</button>
-</div>
 
 <div class="link">
 Already have account? <span onclick="slide(0)">Login</span>
 </div>
 
-<div id="regMsg"></div>
+<p id="regMsg"></p>
 </div>
 
+<!-- FORGOT -->
 <div class="card">
-<h2>Forgot Password</h2>
+<h2>Reset Password</h2>
 
-<input id="forgotEmail" placeholder="Enter Email">
-<button onclick="forgot()">Reset Password</button>
+<input id="forgotEmail" placeholder="Enter your email">
+
+<div class="inputGroup">
+<input type="password" id="newPassword" placeholder="New Password">
+<span class="eye" onclick="togglePassword('newPassword')">👁</span>
+</div>
+
+<button onclick="resetPassword()">Reset Password</button>
 
 <div class="link">
-<span onclick="slide(0)">Back Login</span>
+<span onclick="slide(0)">Back to Login</span>
 </div>
 
-<div id="forgotMsg"></div>
+<p id="forgotMsg"></p>
 </div>
 
 </div>
 </div>
 
+<!-- DASHBOARD -->
 <div class="dashboard" id="dash">
 <h2>Welcome</h2>
 <div class="avatar" id="avatar"></div>
 <p id="userName"></p>
-<button onclick="openLogout()">Logout</button>
-</div>
-
-<div class="logoutModal" id="logoutModal">
-<div class="modalBox">
-<p>Are you sure to logout?</p>
-<button onclick="logout()">Yes</button>
-<button onclick="closeLogout()">Cancel</button>
-</div>
+<button onclick="logout()">Logout</button>
 </div>
 
 <script>
 
+/* SHOW/HIDE PASSWORD */
+function togglePassword(id){
+let input=document.getElementById(id);
+input.type = input.type === "password" ? "text" : "password";
+}
+
 /* SLIDE */
-function slide(i){
-slider.style.transform="translateX(-"+(340*i)+"px)";
-}
-
-/* PASSWORD TOGGLE */
-function togglePass(id){
-let x=document.getElementById(id);
-x.type=x.type==="password"?"text":"password";
-}
-
-/* THEME */
-function toggleTheme(){
-document.body.classList.toggle("light");
+function slide(index){
+slider.style.transform="translateX(-"+(340*index)+"px)";
 }
 
 /* REGISTER */
 function register(){
+let name=regName.value.trim();
+let email=regEmail.value.trim();
+let pass=regPass.value;
+let confirm=confirmPass.value;
+let agree=agreeTerms.checked;
 
-if(!terms.checked){
-regMsg.innerHTML="Accept Terms!";
+if(!name||!email||!pass||!confirm){
+regMsg.innerHTML="All fields required!";
 return;
 }
 
-if(regPass.value!==confirmPass.value){
-regMsg.innerHTML="Password mismatch";
+if(pass!==confirm){
+regMsg.innerHTML="Passwords do not match!";
 return;
 }
 
-let user={
-name:regName.value,
-email:regEmail.value,
-pass:regPass.value
-};
+if(!agree){
+regMsg.innerHTML="You must agree to Terms!";
+return;
+}
 
-localStorage.setItem(user.email,JSON.stringify(user));
-regMsg.innerHTML="Account Created!";
+let users=JSON.parse(localStorage.getItem("users"))||[];
+
+if(users.find(u=>u.email===email)){
+regMsg.innerHTML="Email already registered!";
+return;
+}
+
+users.push({name,email,pass});
+localStorage.setItem("users",JSON.stringify(users));
+
+regMsg.innerHTML="Registered successfully!";
+slide(0);
 }
 
 /* LOGIN */
 function login(){
+let email=loginEmail.value.trim();
+let pass=loginPass.value;
 
-loginLoad.style.display="block";
+let users=JSON.parse(localStorage.getItem("users"))||[];
+let user=users.find(u=>u.email===email&&u.pass===pass);
 
-setTimeout(()=>{
-
-let data=localStorage.getItem(loginEmail.value);
-
-if(!data){
-loginMsg.innerHTML="User not found";
-loginLoad.style.display="none";
+if(!user){
+loginMsg.innerHTML="Invalid credentials!";
 return;
 }
 
-let user=JSON.parse(data);
-
-if(user.pass===loginPass.value){
-
-if(remember.checked){
-localStorage.setItem("activeUser",loginEmail.value);
+if(rememberMe.checked){
+localStorage.setItem("currentUser",JSON.stringify(user));
+}else{
+sessionStorage.setItem("currentUser",JSON.stringify(user));
 }
 
 showDashboard(user);
-
-}else{
-loginMsg.innerHTML="Wrong Password";
 }
 
-loginLoad.style.display="none";
+/* RESET */
+function resetPassword(){
+let email=forgotEmail.value.trim();
+let newPass=newPassword.value;
 
-},1000);
+let users=JSON.parse(localStorage.getItem("users"))||[];
+let user=users.find(u=>u.email===email);
+
+if(!user){
+forgotMsg.innerHTML="Email not found!";
+return;
+}
+
+user.pass=newPass;
+localStorage.setItem("users",JSON.stringify(users));
+forgotMsg.innerHTML="Password updated!";
 }
 
 /* DASHBOARD */
 function showDashboard(user){
-
 authBox.style.display="none";
 dash.style.display="block";
-
-userName.innerText=user.name;
-avatar.innerText=user.name.charAt(0).toUpperCase();
-}
-
-/* FORGOT */
-function forgot(){
-forgotMsg.innerHTML="Reset link sent (demo)";
+userName.innerHTML=user.name;
+avatar.innerHTML=user.name.charAt(0).toUpperCase();
 }
 
 /* LOGOUT */
-function openLogout(){
-logoutModal.style.display="flex";
-}
-
-function closeLogout(){
-logoutModal.style.display="none";
-}
-
 function logout(){
+localStorage.removeItem("currentUser");
+sessionStorage.removeItem("currentUser");
 dash.style.display="none";
 authBox.style.display="block";
-logoutModal.style.display="none";
+slide(0);
 }
 
 /* AUTO LOGIN */
-window.onload=()=>{
-let active=localStorage.getItem("activeUser");
-
-if(active){
-let user=JSON.parse(localStorage.getItem(active));
-showDashboard(user);
-}
+window.onload=function(){
+let user=JSON.parse(localStorage.getItem("currentUser"))||
+JSON.parse(sessionStorage.getItem("currentUser"));
+if(user) showDashboard(user);
 }
 
 </script>
